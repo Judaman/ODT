@@ -180,26 +180,27 @@ module.exports = {
 
 
     var headers = {
-
+        'Accept': 'application/json',
       'x-auth-client': 'pbn9oxi58jm2oy7wb8lmx0aibv2tsuh',
       'x-auth-token': 's6z92qj7abpv6y9v31np5y0pjmaeq45',
-      'content-type': 'application/json',
-      'accept': 'application/json',
+      'Content-type': 'application/json',
+
     };
 
     const config = {
 
       'headers': headers,
       'method': 'POST',
-      'payload': payload,
+      'Body': payload,
       'url': "https://api.bigcommerce.com/stores/sf8pvxqzs0/v2/orders"
       //  'accept': 'application/json',
       //  'content-type': 'application/json',
     }
 
-  //  console.log(config);
-    let res = await axios(config);
-    console.log(res);
+   console.log(config);
+    let res = await axios(config).catch(function(err){console.log(err)});
+
+  //  console.log(res2);
 
   }
 }

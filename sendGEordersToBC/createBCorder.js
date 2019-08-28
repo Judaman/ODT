@@ -1,3 +1,6 @@
+
+
+
 var ordersample = {
   "kind": "content#order",
   "id": "G-SHP-4119-89-0708",
@@ -141,30 +144,30 @@ var payload = {
   "status_id":11,
 //  "customer_id": 0,
   "billing_address": {
-    "first_name": GO.,
-    "last_name": "Gruberger",
-    "street_1": "1225 Ocean Parkway",
-    "city": "Brooklyn",
-    "state": "NY",
-    "zip": "11230",
-    "country": "United States",
-    "country_iso2": "US",
-     "phone":"7185107789",
-    "email": "yehudagruberger@gmail.com"
+    "first_name": ordersample.billingAddress.recipientName,
+  //  "last_name": "Gruberger",
+    "street_1": ordersample.billingAddress.fullAddress,
+    "city": ordersample.billingAddress.locality,
+    "state": ordersample.billingAddress.region,
+    "zip": ordersample.billingAddress.postalCode,
+    "country": ordersample.billingAddress.country,
+  //  "country_iso2": "US",
+//     "phone":,
+//    "email": "yehudagruberger@gmail.com"
   },
   "shipping_addresses": [
     {
-      "first_name": "Yehuda",
-      "last_name": "Gruberger",
+      "first_name": ordersample.customer.fullName,
+//      "last_name": "Gruberger",
   //    "company": "Acme Pty Ltd",
-      "street_1": "1225 Ocean Parkway",
-      "city": "Brooklyn",
-      "state": "NY",
-      "zip": "11230",
-      "country": "United States",
-      "country_iso2": "US",
-      "phone":"7185107789",
-      "email": "yehudagruberger@gmail.com"
+      "street_1": ordersample.deliveryDetails.address.fullAddress,
+      "city":ordersample.deliveryDetails.address.locality,
+      "state": ordersample.deliveryDetails.address.region,
+      "zip": ordersample.deliveryDetails.address.postalCode,
+      "country":ordersample.deliveryDetails.country,
+    //  "country_iso2": "US",
+      "phone":ordersample.deliveryDetails.phoneNumber,
+    //  "email": "yehudagruberger@gmail.com"
     }
   ],
   "products": [

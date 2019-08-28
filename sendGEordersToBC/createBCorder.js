@@ -157,7 +157,7 @@ var payload = {
   "status_id":11,
 //  "customer_id": 0,
   "billing_address": {
-    "first_name": googleOrder,
+    "first_name": GO.,
     "last_name": "Gruberger",
     "street_1": "1225 Ocean Parkway",
     "city": "Brooklyn",

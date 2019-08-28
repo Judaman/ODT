@@ -1,5 +1,5 @@
 {
-  "title": "Order Post/Put/PUTPUTgoose i love chaviva",
+  "title": "Order Post/Put/,
   "example": {
     //"id": 113,
     "customer_id": 0,//0 = guest order

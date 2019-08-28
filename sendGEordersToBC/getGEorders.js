@@ -9,9 +9,9 @@ const orders = await google.content({
         auth
       }).orders.list({
         merchantId: '121694571',
-        maxResults:250
+        maxResults:1
       });
-      console.log(JSON.parse(JSON.stringify(orders.data.resources)));
+  //    console.log(JSON.parse(JSON.stringify(orders.data.resources)));
       return orders.data.resources;
 }
 }

@@ -1,56 +1,51 @@
-
-
-
-var ordersample = {
+/*var googleOrder = {
   "kind": "content#order",
   "id": "G-SHP-4119-89-0708",
   "merchantId": "121694571",
   "merchantOrderId": "Updated G-SHP-4119-89-0708",
-  "lineItems": [
-    {
-      "id": "LAJOTXQ53PCZEIU",
-      "quantityOrdered": 4,
-      "quantityPending": 4,
-      "quantityShipped": 0,
-      "quantityDelivered": 0,
-      "quantityReturned": 0,
-      "quantityCanceled": 0,
-      "quantityUndeliverable": 0,
+  "lineItems": [{
+    "id": "LAJOTXQ53PCZEIU",
+    "quantityOrdered": 4,
+    "quantityPending": 4,
+    "quantityShipped": 0,
+    "quantityDelivered": 0,
+    "quantityReturned": 0,
+    "quantityCanceled": 0,
+    "quantityUndeliverable": 0,
+    "price": {
+      "value": "45.52",
+      "currency": "USD"
+    },
+    "tax": {
+      "value": "0.00",
+      "currency": "USD"
+    },
+    "shippingDetails": {
+      "method": {
+        "methodName": "Free Shipping",
+        "minDaysInTransit": 3,
+        "maxDaysInTransit": 5
+      },
+      "shipByDate": "2019-08-31T01:00:00Z",
+      "deliverByDate": "2019-09-10T01:00:00Z"
+    },
+    "product": {
+      "id": "online:en:US:23968",
+      "offerId": "23968",
+      "targetCountry": "US",
+      "contentLanguage": "en",
       "price": {
-        "value": "45.52",
+        "value": "11.38",
         "currency": "USD"
       },
-      "tax": {
-        "value": "0.00",
-        "currency": "USD"
-      },
-      "shippingDetails": {
-        "method": {
-          "methodName": "Free Shipping",
-          "minDaysInTransit": 3,
-          "maxDaysInTransit": 5
-        },
-        "shipByDate": "2019-08-31T01:00:00Z",
-        "deliverByDate": "2019-09-10T01:00:00Z"
-      },
-      "product": {
-        "id": "online:en:US:23968",
-        "offerId": "23968",
-        "targetCountry": "US",
-        "contentLanguage": "en",
-        "price": {
-          "value": "11.38",
-          "currency": "USD"
-        },
-        "title": "Yardley Bath & Shower Gel, Skin Smoothing, Sea Minerals - 16 fl oz",
-        "gtin": "00041840829697",
-        "brand": "",
-        "mpn": "sku6100394",
-        "condition": "new",
-        "shownImage": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS-2tmmJPs8R1b_zELW16aEFDx0ACXNtmQFtktobNW4AuH2V4CsebyA7yVieXh8EDM8GjHNkvM&usqp=CAk"
-      }
+      "title": "Yardley Bath & Shower Gel, Skin Smoothing, Sea Minerals - 16 fl oz",
+      "gtin": "00041840829697",
+      "brand": "",
+      "mpn": "sku6100394",
+      "condition": "new",
+      "shownImage": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcS-2tmmJPs8R1b_zELW16aEFDx0ACXNtmQFtktobNW4AuH2V4CsebyA7yVieXh8EDM8GjHNkvM&usqp=CAk"
     }
-  ],
+  }],
   "status": "pendingShipment",
   "paymentStatus": "paymentSecured",
   "acknowledged": true,
@@ -112,109 +107,99 @@ var ordersample = {
   },
   "taxCollector": "merchant"
 }
+*/
+
+const {
+  google
+} = require('googleapis');
+
+const axios = require('axios');
+
+module.exports = {
+  createBigCommerceOrder: async function createBigCommerceOrder(googleOrder) {
 
 
+    var products = [];
+    var items = googleOrder.lineItems;
 
-const {google} = require('googleapis');
-
-async function getGEorders(auth){
-
-const googleOrder = await google.content({
-        version: 'v2.1',
-        auth
-      }).orders.list({
-        merchantId: '121694571'
-      });
-
-      console.log(orders.data.resources);
-      return orders.data.resources;
+    for (var indexOfItems = 0; indexOfItems < items.length; indexOfItems++) {
+      item = {
+        "product_id": /* items[indexOfItems].product.offerId*/ 111,
+        //  "price_inc_tax":Number(items[indexOfItems].product.price.value)  ,
+        "price_ex_tax": Number(items[indexOfItems].product.price.value),
+        "price_inc_tax": Number(items[indexOfItems].product.price.value) + Number(Number(items[indexOfItems].tax.value) / Number(items[indexOfItems].quantityOrdered)),
 
 
-
-}
-
-
- var GO = googleOrder.data.resources[0];
-
- const axios = require('axios');
-
-module.exports = {createBigCommerceOrder:function createBigCommerceOrder(googleOrder) {
-
-var payload = {
-  "status_id":11,
-//  "customer_id": 0,
-  "billing_address": {
-    "first_name": ordersample.billingAddress.recipientName,
-  //  "last_name": "Gruberger",
-    "street_1": ordersample.billingAddress.fullAddress,
-    "city": ordersample.billingAddress.locality,
-    "state": ordersample.billingAddress.region,
-    "zip": ordersample.billingAddress.postalCode,
-    "country": ordersample.billingAddress.country,
-  //  "country_iso2": "US",
-//     "phone":,
-//    "email": "yehudagruberger@gmail.com"
-  },
-  "shipping_addresses": [
-    {
-      "first_name": ordersample.customer.fullName,
-//      "last_name": "Gruberger",
-  //    "company": "Acme Pty Ltd",
-      "street_1": ordersample.deliveryDetails.address.fullAddress,
-      "city":ordersample.deliveryDetails.address.locality,
-      "state": ordersample.deliveryDetails.address.region,
-      "zip": ordersample.deliveryDetails.address.postalCode,
-      "country":ordersample.deliveryDetails.country,
-    //  "country_iso2": "US",
-      "phone":ordersample.deliveryDetails.phoneNumber,
-    //  "email": "yehudagruberger@gmail.com"
+        "quantity": Number(items[indexOfItems].quantityOrdered),
+      }
+      products.push(item);
     }
-  ],
 
 
+    var payload = {
+      "status_id": 11,
+      "customer_id": 0,
+      "billing_address": {
+        "first_name": googleOrder.billingAddress.recipientName,
 
+        //  "last_name": "Gruberger",
+        "street_1": googleOrder.billingAddress.fullAddress[1] + " " + googleOrder.billingAddress.fullAddress[2],
+        "city": googleOrder.billingAddress.locality,
+        "state": googleOrder.billingAddress.region,
+        "zip": googleOrder.billingAddress.postalCode,
+        //  "country": googleOrder.billingAddress.country,
+        "country_iso2": googleOrder.billingAddress.country,
+        //     "phone":,
+        //    "email": "yehudagruberger@gmail.com"
+      },
+      "shipping_addresses": [{
+        "first_name": googleOrder.customer.fullName,
+        //      "last_name": "Gruberger",
+        //    "company": "Acme Pty Ltd",
+        "street_1": googleOrder.deliveryDetails.address.fullAddress[1],
+        "city": googleOrder.deliveryDetails.address.locality,
+        "state": googleOrder.deliveryDetails.address.region,
+        "zip": googleOrder.deliveryDetails.address.postalCode,
+        //  "country": googleOrder.deliveryDetails.country,
+        "country_iso2": googleOrder.deliveryDetails.address.country,
+        "phone": googleOrder.deliveryDetails.phoneNumber,
+        //  "email": "yehudagruberger@gmail.com"
+      }],
 
-  "products": [
-    {
-
-     "product_id": 769,
-    "price_inc_tax":0,
-      "price_ex_tax":0,
-      "quantity":0,
-
+      "products": products,
+      "external_source": "Google Express",
+      "external_id": googleOrder.id,
+      "date_created": new Date().toUTCString(),
+      "shipping_cost_ex_tax": Number(googleOrder.shippingCost.value),
+      "shipping_cost_inc_tax": Number(googleOrder.shippingCost.value) + Number(googleOrder.shippingCostTax.value),
     }
-  ],
 
- "external_source":"Google Express",
- "external_id":ordersample.id,
-  "date_created":ordersample.placedDate,
-}
-
- payload = JSON.stringify(payload);
+    payload = JSON.stringify(payload);
+    console.log(payload);
+    //  console.log(payload);
 
 
-  var headers = {
-    'x-auth-client': 'mlthv0ewhpfkeu5ipzm8ylgolcj61pe',
-    'x-auth-token': 'g8tqdc09vom2uwxnqxjyp8q25g68ff3',
-    'content-type':'application/json',
-    'accept': 'application/json',
-  };
-  var options = {
-     'headers': headers,
-    'method':'POST',
-    'payload':payload
-  };
+    var headers = {
 
-   const config = {
-    'headers': headers,
-      'method': 'POST',
-      'url': 'https://api.bigcommerce.com/stores/{storehash}/v2/orders',
-      'accept': 'application/json',
+      'x-auth-client': 'pbn9oxi58jm2oy7wb8lmx0aibv2tsuh',
+      'x-auth-token': 's6z92qj7abpv6y9v31np5y0pjmaeq45',
       'content-type': 'application/json',
-     'payload':payload
-    }
-let res = await axios(config)
-console.log(res);
+      'accept': 'application/json',
+    };
 
-}
+    const config = {
+
+      'headers': headers,
+      'method': 'POST',
+      'payload': payload,
+      'url': "https://api.bigcommerce.com/stores/sf8pvxqzs0/v2/orders"
+      //  'accept': 'application/json',
+      //  'content-type': 'application/json',
+    }
+
+  //  console.log(config);
+    let res = await axios(config);
+    console.log(res);
+
+  }
 }

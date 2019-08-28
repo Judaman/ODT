@@ -1,8 +1,8 @@
 
 module.exports = {sendGEordersToBC:
-function sendGEordersToBC() {
+async function sendGEordersToBC(auth) {
   const createBCorderFunction = require("./createBCorder")
-  const googleOrders =  require("./getGEorders").getGEorders();
+  const googleOrders = await  require("./getGEorders").getGEorders(auth);
 
 if(googleOrders){
 

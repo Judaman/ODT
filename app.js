@@ -25,10 +25,10 @@ const app = express();
 
 
 
-app.get('/getGEorders', (req, res) => {
+app.get('/sendGEordersToBC', (req, res) => {
 
-   main.getGEorders();
-  res.status(200).send('getGEorders');
+   main.sendGEordersToBC();
+  res.status(200).send('sendGEordersToBC');
 
 
 });

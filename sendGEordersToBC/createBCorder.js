@@ -170,6 +170,10 @@ var payload = {
     //  "email": "yehudagruberger@gmail.com"
     }
   ],
+
+
+
+
   "products": [
     {
 
@@ -182,8 +186,8 @@ var payload = {
   ],
 
  "external_source":"Google Express",
- "external_id":"googleorderid",
-  "date_created":"Tue, 20 Nov 2012 00:00:00 +0000",
+ "external_id":ordersample.id,
+  "date_created":ordersample.placedDate,
 }
 
  payload = JSON.stringify(payload);

@@ -112,22 +112,6 @@ var ordersample = {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const {google} = require('googleapis');
 
 async function getGEorders(auth){

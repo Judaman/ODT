@@ -125,7 +125,7 @@ module.exports = {
 
     for (var indexOfItems = 0; indexOfItems < items.length; indexOfItems++) {
       item = {
-        "product_id": /* items[indexOfItems].product.offerId,*/111,
+        "product_id": /* items[indexOfItems].product.offerId,*/107,
         //  "price_inc_tax":Number(items[indexOfItems].product.price.value)  ,
         "price_ex_tax": Number(items[indexOfItems].product.price.value),
         "price_inc_tax": Number(items[indexOfItems].product.price.value) + Number(Number(items[indexOfItems].tax.value) / Number(items[indexOfItems].quantityOrdered)),
@@ -144,7 +144,7 @@ module.exports = {
         "first_name": googleOrder.billingAddress.recipientName,
 
         //  "last_name": "Gruberger",
-        "street_1": googleOrder.billingAddress.fullAddress[1] + " " + googleOrder.billingAddress.fullAddress[2],
+  //      "street_1": googleOrder.billingAddress.fullAddress[1] + " " + googleOrder.billingAddress.fullAddress[2],
         "city": googleOrder.billingAddress.locality,
         "state": googleOrder.billingAddress.region,
         "zip": googleOrder.billingAddress.postalCode,
@@ -200,8 +200,8 @@ module.exports = {
         console.error(error)
         return
       }
-      //  console.log(`statusCode: ${res.statusCode}`)
-      var BCorderID = JSON.parse(body).id
+        console.log(`statusCode: ${res.statusCode}`)
+      var BCorderID = JSON.parse(body).id;
 
 //sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
     })

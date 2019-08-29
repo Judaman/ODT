@@ -4,6 +4,7 @@ async function sendGEordersToBC(auth) {
   const createBCorderFunction = require("./createBCorder")
   const googleOrders = await  require("./getGEorders").getGEorders(auth);
 
+
 if(googleOrders){
 
  var googleOrdersLength = googleOrders.length;
@@ -12,7 +13,7 @@ if(googleOrders){
 
   try{
 
-  var BCorder = createBCorderFunction.createBigCommerceOrder(googleOrders[indexOfGoogleOrders]);
+  var BCorder = createBCorderFunction.createBigCommerceOrder(auth,googleOrders[indexOfGoogleOrders]);
 //send order...
 
   }

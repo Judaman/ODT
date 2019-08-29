@@ -115,16 +115,17 @@ const {
 
 const axios = require('axios');
 
-module.exports = {
-  createBigCommerceOrder: async function createBigCommerceOrder(googleOrder) {
+const sendBCorderIDtoGEfunction = require("./sendBCorderIDtoGE");
 
+module.exports = {
+  createBigCommerceOrder: async function createBigCommerceOrder(auth,googleOrder) {
 
     var products = [];
     var items = googleOrder.lineItems;
 
     for (var indexOfItems = 0; indexOfItems < items.length; indexOfItems++) {
       item = {
-        "product_id": /* items[indexOfItems].product.offerId*/ 111,
+        "product_id": /* items[indexOfItems].product.offerId,*/111,
         //  "price_inc_tax":Number(items[indexOfItems].product.price.value)  ,
         "price_ex_tax": Number(items[indexOfItems].product.price.value),
         "price_inc_tax": Number(items[indexOfItems].product.price.value) + Number(Number(items[indexOfItems].tax.value) / Number(items[indexOfItems].quantityOrdered)),
@@ -175,12 +176,10 @@ module.exports = {
     }
 
     payload = JSON.stringify(payload);
-    console.log(payload);
-    //  console.log(payload);
 
 
     var headers = {
-        'Accept': 'application/json',
+      'Accept': 'application/json',
       'x-auth-client': 'pbn9oxi58jm2oy7wb8lmx0aibv2tsuh',
       'x-auth-token': 's6z92qj7abpv6y9v31np5y0pjmaeq45',
       'Content-type': 'application/json',
@@ -191,16 +190,22 @@ module.exports = {
 
       'headers': headers,
       'method': 'POST',
-      'Body': payload,
+      'body': payload,
       'url': "https://api.bigcommerce.com/stores/sf8pvxqzs0/v2/orders"
-      //  'accept': 'application/json',
-      //  'content-type': 'application/json',
     }
+    const request = require('request')
 
-   console.log(config);
-    let res = await axios(config).catch(function(err){console.log(err)});
+    request.post(config, (error, res, body) => {
+      if (error) {
+        console.error(error)
+        return
+      }
+      //  console.log(`statusCode: ${res.statusCode}`)
+      var BCorderID = JSON.parse(body).id
 
-  //  console.log(res2);
+//sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
+    })
 
   }
+
 }

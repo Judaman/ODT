@@ -125,7 +125,7 @@ module.exports = {
 
     for (var indexOfItems = 0; indexOfItems < items.length; indexOfItems++) {
       item = {
-        "product_id": /* items[indexOfItems].product.offerId,*/107,
+        "product_id":items[indexOfItems].product.offerId,
         //  "price_inc_tax":Number(items[indexOfItems].product.price.value)  ,
         "price_ex_tax": Number(items[indexOfItems].product.price.value),
         "price_inc_tax": Number(items[indexOfItems].product.price.value) + Number(Number(items[indexOfItems].tax.value) / Number(items[indexOfItems].quantityOrdered)),
@@ -201,7 +201,7 @@ module.exports = {
         return
       }
         console.log(`statusCode: ${res.statusCode}`)
-      var BCorderID = JSON.parse(body).id;
+        console.log(res)
 
 //sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
     })

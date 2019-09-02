@@ -136,10 +136,6 @@ module.exports = {
       products.push(item);
     }
 
-
-
-
-
     var payload = {
       "status_id": 11,
       "customer_id": 0,

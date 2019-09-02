@@ -6,9 +6,6 @@ module.exports = {
     const BCproducts = require("./getBCproducts").getBCproducts();
     const BCbrands = require("./getBCproducts").getBCbrands();
 
-
-
-
     BCproducts.then(async function(BCproducts) {
       //  var allGoogleProducts = ShoppingContent.Products.
       //BCproducts = JSON.stringify(BCproducts)

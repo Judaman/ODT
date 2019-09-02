@@ -1,24 +1,26 @@
+module.exports = {
+  sendGEordersToBC: async function sendGEordersToBC(auth) {
+    const createBCorderFunction = require("./createBCorder")
+    const googleOrders = await require("./getGEorders").getGEorders(auth);
+    const updateBCorder = await require("./updateBCorder").updateBCorder();
 
-module.exports = {sendGEordersToBC:
-async function sendGEordersToBC(auth) {
-  const createBCorderFunction = require("./createBCorder")
-  const googleOrders = await  require("./getGEorders").getGEorders(auth);
+    if (googleOrders) {
 
+      var googleOrdersLength = googleOrders.length;
 
-if(googleOrders){
+      for (var indexOfGoogleOrders = 0; indexOfGoogleOrders < googleOrdersLength; indexOfGoogleOrders++) {
+        if (googleOrders[indexOfGoogleOrders].merchantId) {
+          try {
 
- var googleOrdersLength = googleOrders.length;
+            var BCorder = createBCorderFunction.createBigCommerceOrder(auth, googleOrders[indexOfGoogleOrders]);
 
-  for(var indexOfGoogleOrders = 0; indexOfGoogleOrders < googleOrdersLength;indexOfGoogleOrders++ ){
-
-  try{
-
-  var BCorder = createBCorderFunction.createBigCommerceOrder(auth,googleOrders[indexOfGoogleOrders]);
-//send order...
-
+          } catch (err) {
+            console.log(err)
+          }
+        } else {
+          updateBCorder(googleOrders[indexOfGoogleOrders]);
+        }
+      }
+    }
   }
-  catch(err){console.log(err)}
-  }
- }
-}
 }

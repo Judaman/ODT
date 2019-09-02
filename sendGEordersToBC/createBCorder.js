@@ -118,14 +118,14 @@ const axios = require('axios');
 const sendBCorderIDtoGEfunction = require("./sendBCorderIDtoGE");
 
 module.exports = {
-  createBigCommerceOrder: async function createBigCommerceOrder(auth,googleOrder) {
+  createBigCommerceOrder: async function createBigCommerceOrder(auth, googleOrder) {
 
     var products = [];
     var items = googleOrder.lineItems;
 
     for (var indexOfItems = 0; indexOfItems < items.length; indexOfItems++) {
       item = {
-        "product_id":items[indexOfItems].product.offerId,
+        "product_id": items[indexOfItems].product.offerId,
         //  "price_inc_tax":Number(items[indexOfItems].product.price.value)  ,
         "price_ex_tax": Number(items[indexOfItems].product.price.value),
         "price_inc_tax": Number(items[indexOfItems].product.price.value) + Number(Number(items[indexOfItems].tax.value) / Number(items[indexOfItems].quantityOrdered)),
@@ -137,6 +137,9 @@ module.exports = {
     }
 
 
+
+
+
     var payload = {
       "status_id": 11,
       "customer_id": 0,
@@ -144,7 +147,7 @@ module.exports = {
         "first_name": googleOrder.billingAddress.recipientName,
 
         //  "last_name": "Gruberger",
-  //      "street_1": googleOrder.billingAddress.fullAddress[1] + " " + googleOrder.billingAddress.fullAddress[2],
+        //      "street_1": googleOrder.billingAddress.fullAddress[1] + " " + googleOrder.billingAddress.fullAddress[2],
         "city": googleOrder.billingAddress.locality,
         "state": googleOrder.billingAddress.region,
         "zip": googleOrder.billingAddress.postalCode,
@@ -200,10 +203,10 @@ module.exports = {
         console.error(error)
         return
       }
-        console.log(`statusCode: ${res.statusCode}`)
-        console.log(res)
+      console.log(`statusCode: ${res.statusCode}`)
+      console.log(res)
 
-//sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
+      //sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
     })
 
   }

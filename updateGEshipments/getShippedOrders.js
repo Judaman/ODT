@@ -1,4 +1,4 @@
-module.exports = {function
+module.exports = {
 
   getShippedOrders:
   //getBCproducts();
@@ -18,3 +18,4 @@ module.exports = {function
     return shippedOrders;
     }
     }
+  }

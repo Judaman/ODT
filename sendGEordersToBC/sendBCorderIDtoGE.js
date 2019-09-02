@@ -6,7 +6,7 @@ async function sendBCorderIDtoGE(auth,GEorderID,BCorderID){
 
 var body = {
 
-  "operationId": updatemerchantorderid +  GEorderID,
+  "operationId": "updatemerchantorderid" +  GEorderID,
   "merchantOrderId": BCorderID
 }
 
@@ -16,7 +16,7 @@ const updateMerchantOrderId = await google.content({
       }).orders.updatemerchantorderid({
         merchantId: '1210694571',
         orderID:GEorderID,
-        body:body
+        resource:body
       });
      console.log(updateMerchantOrderId);
 

@@ -48,6 +48,16 @@ app.get('/updateGEinv', (req, res) => {
  // console.log(met);
 
 });
+
+
+app.get('/UpdateGEshipments', (req, res) => {
+    const UpdateGEshipments = main.UpdateGEshipments();
+
+  res.status(200).send('UpdateGEshipments');
+ // console.log(met);
+
+});
+
 // [END hello_world]
 
 

@@ -33,4 +33,5 @@ module.exports = {
 //loop through orders
 //get order shipment info
 //loop trough shipments
-//
+//get line item key for shipment
+//update shipments on GE

@@ -50,10 +50,10 @@ app.get('/updateGEinv', (req, res) => {
 });
 
 
-app.get('/UpdateGEshipments', (req, res) => {
-    const UpdateGEshipments = main.UpdateGEshipments();
+app.get('/updateGEshipments', (req, res) => {
+    const updateGEshipments = main.updateGEshipments();
 
-  res.status(200).send('UpdateGEshipments');
+  res.status(200).send('updateGEshipments');
  // console.log(met);
 
 });

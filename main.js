@@ -96,13 +96,12 @@ async function updateGEinv(auth) {
 
 }
 
-async function UpdateGEshipments(auth) {
+async function updateGEshipments(auth) {
 
-  var UpdateGEshipments = require("./UpdateGEshipments/UpdateGEshipments")
-  UpdateGEshipments.getGEorder(auth);
+  var updateGEshipments = require("./updateGEshipments/updateGEshipments")
+  updateGEshipments.updateGEshipments(auth);
 
 }
-
 
 ///////////////
 
@@ -133,12 +132,12 @@ module.exports = {
     })
   },
 
-  UpdateGEshipments: function() {
+  updateGEshipments: function() {
     fs.readFile('credentials.json', 'utf8', (err, content) => {
 
       if (err) return console.log('Error loading client secret file:', err);
       // Authorize a client with credentials, then call the Google Sheets API.
-      authorize(JSON.parse(content), UpdateGEshipments);
+      authorize(JSON.parse(content), updateGEshipments);
     })
   }
 }

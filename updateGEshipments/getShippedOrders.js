@@ -1,9 +1,7 @@
-//module.exports = {
-const axios = require("axios");
-
-getShippedOrders()
+module.exports = {
 //  getShippedOrders:
-    async function getShippedOrders() {
+    getShippedOrders:async function getShippedOrders() {
+      const axios = require("axios");
 
       var headers = {
         'x-auth-client': 'pbn9oxi58jm2oy7wb8lmx0aibv2tsuh',
@@ -19,7 +17,7 @@ getShippedOrders()
       }
       let res = await axios(config)
 
-      console.log(res.data);
-    //  return shippedOrders;
+  //    console.log(res.data);
+      return res.data;
     }
-//}
+}

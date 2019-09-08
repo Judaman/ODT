@@ -2,36 +2,40 @@ const {
   google
 } = require('googleapis');
 
+
 module.exports = {
-  getGEorder: async function getGEorder(auth, ) {
+  updateGEshipments: async function updateGEshipments(auth) {
 
-    var orderId = "G-SHP-7416-86-9014";
+    const shippedOrders = await require('./getShippedOrders').getShippedOrders();
 
-    const order = await google.content({
-      version: 'v2.1',
-      auth
-    }).orders.get({
-      merchantId: '121694571',
-      orderId: orderId
+    for (var indexOforders = 0; indexOforders < shippedOrders.length; indexOforders++) {
+      var order = shippedOrders[indexOforders];
 
-    });
+      var shipments = await require('./getOrderShipmentInfo').getOrderShipmentInfo(order.id);
 
-    var lineItems = order.data.lineItems;
-    for (var indexOfItems = 0; indexOfItems < lineItems.length; indexOfItems++) {
-      if(lineItems[indexOfItems].product.offerId == orderId)
-      console.log(lineItems[indexOfItems].product.offerId);
+      for (var indexOfshipments = 0; indexOfshipments < shipments.length; indexOfshipments++) {
+        var shipment = shipments[indexOfshipments];
+        var trackingNumber = shipment.tracking_number;
+        var trackingCarrier = shipment.tracking_carrier;
+        var shipmentItems = shipment.items;
 
+        for (var indexOfshipmentItems = 0; indexOfshipmentItems < shipmentItems.length; indexOfshipmentItems++) {
+          var shipmentItem = shipmentItems[indexOfshipmentItems];
+
+          var lineItemKey = await require('/getLineItemKey').getLineItemKey(auth, order.external_id, shipmentItem.product_id);
+
+          var updateShipment = await require('./updateGEshipment').updateGEshipment(auth, order.external_id, lineItemKey, trackingNumber, trackingCarrier);
+
+        }
+      }
     }
-    //    console.log(JSON.parse(JSON.stringify(orders.data.resources)));
-    return order.data.resources;
-
   }
 }
-
 
 //get shipped orders
 //loop through orders
 //get order shipment info
 //loop trough shipments
-//get line item key for shipment
+//loopthrough shipment Items
+//get line item key for item
 //update shipments on GE

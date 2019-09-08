@@ -201,10 +201,7 @@ module.exports = {
       }
       console.log(`statusCode: ${res.statusCode}`)
       console.log(res)
-
       //sendBCorderIDtoGEfunction.sendBCorderIDtoGE(auth,GEorderID,BCorderID)
     })
-
   }
-
 }
